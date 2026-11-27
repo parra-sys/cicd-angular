@@ -31,4 +31,31 @@ export class Task {
   remove(id: number): void {
     this.items.update((list) => list.filter((t) => t.id !== id));
   }
+
+  // Métodos nuevos SIN tests: bajan la cobertura por debajo del umbral.
+  rename(id: number, title: string): void {
+    const clean = title.trim();
+    if (!clean) {
+      return;
+    }
+    this.items.update((list) => list.map((t) => (t.id === id ? { ...t, title: clean } : t)));
+  }
+
+  markAllDone(): void {
+    this.items.update((list) => list.map((t) => ({ ...t, done: true })));
+  }
+
+  clearDone(): void {
+    this.items.update((list) => list.filter((t) => !t.done));
+  }
+
+  search(text: string): TaskItem[] {
+    const q = text.trim().toLowerCase();
+    return this.items().filter((t) => t.title.toLowerCase().includes(q));
+  }
+
+  toCsv(): string {
+    const rows = this.items().map((t) => `${t.id};${t.title};${t.done ? 'sí' : 'no'}`);
+    return ['id;título;hecha', ...rows].join('\n');
+  }
 }
