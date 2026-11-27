@@ -10,5 +10,5 @@ import { TaskList } from './components/task-list/task-list';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('cicd-angular');
+  protected readonly title = signal('Práctica 4 CI/CD');
 }
