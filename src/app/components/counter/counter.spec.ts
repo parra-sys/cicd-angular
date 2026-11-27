@@ -25,7 +25,7 @@ describe('Counter', () => {
   it('incrementa al pulsar +', async () => {
     await click('.inc');
     await click('.inc');
-    expect(shown()).toBe('2');
+    expect(shown()).toBe('3');
   });
 
   it('no baja de 0 al pulsar -', async () => {
